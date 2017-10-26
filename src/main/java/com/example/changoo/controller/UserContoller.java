@@ -1,0 +1,208 @@
+package com.example.changoo.controller;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.json.simple.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.example.changoo.httpConnect.Protocol;
+import com.example.changoo.log.Log;
+import com.example.changoo.model.User;
+import com.example.changoo.service.UserService;
+
+@Controller
+public class UserContoller {
+
+	private UserService userService;
+
+	@Autowired
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/login", method = { RequestMethod.POST, RequestMethod.GET })
+	public HashMap<String, Object> login(User user) {
+		Log.line();
+		Log.i("/login");
+
+		String id = user.getId();
+		String password = user.getPassword();
+		
+		Log.i("User input");
+		Log.i("ID : " + id);
+		Log.i("PW : " + password);
+		Log.line();
+
+		/**
+		 * CHECKING Data base///////////////////// OK == FIND USER SUCCESS NOK==
+		 * FIND USER FAIL
+		 */
+
+		JSONObject message = new JSONObject();
+
+		User userFromDB = userService.getUser(id);
+		if (userFromDB == null) {
+			Log.i("ID : " + id + "   DB don't have ID");
+			message.put(Protocol.CHECKING_USER, Protocol.USER_NOK);
+		}
+
+		else {
+			if (userFromDB.getPassword().equals(password) == true) {
+				Log.i("DB have ID && PASWWORD");
+				Log.i("ID : " + userFromDB.getId());
+				Log.i("PW : " + userFromDB.getPassword());
+				Log.i("Gender : " + userFromDB.getGender());
+				Log.i("PhoneNumber : " + userFromDB.getPhoneNumber());
+				Log.i("Birth : " + userFromDB.getBirth());
+				Log.i("ImgFile : " + userFromDB.getImageFile());
+				
+				message.put(Protocol.CHECKING_USER, Protocol.USER_OK);
+				message.put("user", userFromDB);
+			} else {
+				Log.i("ID : " + id + "   DB have ID but PASSWORD is wrong");
+				message.put(Protocol.CHECKING_USER, Protocol.USER_NOK);
+			}
+		}
+
+		///////////////////////////////////////////////////////////
+
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("message", message);
+
+		return map;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/saveUser", method = { RequestMethod.GET, RequestMethod.POST })
+	public HashMap<String, Object> saveUser(Model model, User user) {
+		
+		String id = user.getId();
+		String password = user.getPassword();
+		String name = user.getName();
+		String birth = user.getBirth();
+		String phonenumber = user.getPhoneNumber();
+
+		Log.line();
+		Log.i("/saveUser");
+		Log.i(" ID " + id);
+		Log.i(" PW " + password);
+		Log.i(" NAME " + name);
+		Log.i("BIRTH " + birth);
+		Log.i("PHONENUMBER " + phonenumber);
+
+		/**
+		 * CHECKING Data base/////////////////////
+		 * NOK == USER ALREADY EXISTS
+		 * OK== USER ENROLL SUCCESS
+		 */
+
+		JSONObject message = new JSONObject();
+
+		User userFromDB = userService.getUser(id);
+
+		if (userFromDB == null) {
+			message.put(Protocol.CHECKING_USER, Protocol.JOIN_NOK);
+		}
+
+		else {
+			if(userService.setUser(user))
+				message.put(Protocol.CHECKING_USER, Protocol.JOIN_OK);
+		}
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("message", message);
+		
+		return map;
+
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/join", method = { RequestMethod.GET, RequestMethod.POST })
+	public HashMap<String, Object> join(Model model, User user) {
+		JSONObject message = new JSONObject();
+		
+		message.put(Protocol.CHECKING_USER, Protocol.JOIN_OK);
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("message", message);
+		
+		return map;
+		
+//		String id = user.getId();
+//		String password = user.getPassword();
+//		String name = user.getName();
+//		String gender = user.getGender();
+//		String birth = user.getBirth();
+//		String phonenumber = user.getPhoneNumber();
+//
+//		Log.line();
+//		Log.i("/Join");
+//		Log.i("ID" + id);
+//		Log.i(" PW " + password);
+//		Log.i(" NAME " + name);
+//		Log.i("GENDER " + gender);
+//		Log.i("BIRTH " + birth);
+//		Log.i("PHONENUMBER " + phonenumber);
+//
+//		/**
+//		 * CHECKING Data base///////////////////// NOK == USER ALREADY EXISTS
+//		 * OK== USER ENROLL SUCCESS
+//		 */
+//
+//		JSONObject message = new JSONObject();
+//
+//		User userFromDB = userService.getUser(id);
+//
+//		if (userFromDB == null) {
+//			// DB �ݿ� �۾�
+//			userService.insert(user);
+//			message.put(Protocol.CHECKING_USER, Protocol.JOIN_OK);
+//
+//		}
+//
+//		else { 
+//			message.put(Protocol.CHECKING_USER, Protocol.JOIN_NOK);
+//
+//		}
+//
+//		model.addAttribute("message", message);
+
+	}
+
+	@RequestMapping(value = "/saveUserImage", method = { RequestMethod.GET, RequestMethod.POST })
+	public void saveFishImage(String id, String filename, @RequestParam("image") MultipartFile multipartFile, HttpServletRequest request) {
+		Log.line();
+		Log.i("/saveFishImage");
+		Log.i("ID : " + id);
+		Log.i("FILENAME : " + filename);
+		Log.i("FILESIZE  :" + multipartFile.getSize());
+		Log.i("Save File.........");
+
+		String folder_path 	= request.getSession().getServletContext().getRealPath("/") + "resources/user_img/";
+		String imagePath 	= folder_path + filename;
+
+		Log.i("Image Path  : " + imagePath);
+		
+		File file = new File(imagePath);
+
+		try {
+			multipartFile.transferTo(file);
+		} catch (IllegalStateException | IOException e) {
+			Log.e(e.getMessage());
+		}
+
+		Log.i("........File Saved");
+
+	}
+}
