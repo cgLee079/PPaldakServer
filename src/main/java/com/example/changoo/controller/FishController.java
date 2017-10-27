@@ -59,25 +59,25 @@ public class FishController {
 		Log.i("FILENAME : " + filename);
 		Log.i("Delete Fish -------------------------");
 		
-		if (fishService.delete(id)) { Log.i("Fish Info deleted From DB"); }
+		String 	folderPath 	= request.getSession().getServletContext().getRealPath("/") + "resources/fish_img";
+		File	fshImg 		= new File(folderPath, filename);
+		boolean isFshdel	= false;
+		boolean isFshImgdel = false;
+		
+		isFshdel =  fishService.delete(id);
+		if (fshImg.exists()) { isFshImgdel = fshImg.delete(); }
+		
+		/* */
+		if (isFshdel) { Log.i("Fish Info deleted From DB"); }
 		else { Log.i("Fish info deleted fail From DB"); }
-
-		String folderPath 	= request.getSession().getServletContext().getRealPath("/") + "resources/fish_img/";
-		String imagePath 	= folderPath + filename;
 		
-		Log.i("Image Path  : " + imagePath);
-		
-		File file = new File(imagePath);
-
-		if (file.exists()) {
-			if (file.delete()) { Log.i("Fish Image deleted"); }
-			else { Log.i("Fish Image delete Failed"); }
-		}
+		if (isFshImgdel) { Log.i("Fish Image deleted"); }
+		else { Log.i("Fish Image deleted fail"); }
 	}
 
 	@RequestMapping(value = "/saveFishImage", method = { RequestMethod.GET, RequestMethod.POST })
 	public void saveFishImage(Model model, String id, String filename,
-			@RequestParam("image") MultipartFile multipartFile, HttpServletRequest request) {
+			@RequestParam("image") MultipartFile multipartFile, HttpServletRequest request) throws IllegalStateException, IOException {
 		Log.line();
 		Log.i("/saveFishImage");
 		Log.i("ID : " + id);
@@ -85,18 +85,10 @@ public class FishController {
 		Log.i("FILESIZE  :" + multipartFile.getSize());
 		Log.i("Save File.........");
 
-		String folderPath 	= request.getSession().getServletContext().getRealPath("/") + "resources/fish_img/";
-		String imagePath 	= folderPath + filename;
+		String folderPath 	= request.getSession().getServletContext().getRealPath("/") + "resources/fish_img";
+		File fshImg = new File(folderPath, filename);
 
-		Log.i("Image Path  : " + imagePath);
-		
-		File file = new File(imagePath);
-
-		try {
-			multipartFile.transferTo(file);
-		} catch (IllegalStateException | IOException e) {
-			Log.e(e.getMessage());
-		}
+		multipartFile.transferTo(fshImg);
 
 		Log.i("........File Saved");
 	}
