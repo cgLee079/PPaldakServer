@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cglee079.mapper.FishMapper">
 	<insert id="insert">
-	    INSERT INTO TB_PPALDAK_FISHS
+	    INSERT INTO TB_PPALDAK_FISHS (FSH_ID, FSH_OWNER, FSH_NM, FSH_MAXPWR, FSH_AVGPWR, FSH_DATE, FSH_TIME, FSH_TIMEING, FSH_GPSLAT, FSH_GPSLOT)
 		VALUES(#{id}, #{owner}, #{name}, #{maxPower}, #{avgPower}, #{date}, #{time}, #{timeing}, #{GPSLat}, #{GPSLot})
 	</insert>
 	
