@@ -5,8 +5,7 @@
 <mapper namespace="com.cglee079.mapper.FishMapper">
 	<insert id="insert">
 	    INSERT INTO TB_PPALDAK_FISHS
-		VALUES(#{id}, #{owner}, #{name}, #{image}, #{maxPower}, #{avgPower}, #{date}, #{time},
-				#{timeing}, #{GPSLat}, #{GPSLot})
+		VALUES(#{id}, #{owner}, #{name}, #{maxPower}, #{avgPower}, #{date}, #{time}, #{timeing}, #{GPSLat}, #{GPSLot})
 	</insert>
 	
 	<delete id="delete" parameterType="map">

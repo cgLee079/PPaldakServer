@@ -6,7 +6,6 @@ public class FishVo {
 	private String id;
 	private String owner;
 	private String name;
-	private String image;
 	private String species;
 	private Double maxPower;
 	private Double avgPower;
@@ -18,16 +17,16 @@ public class FishVo {
 
 	@Override
 	public String toString() {
-		return "Fish [id=" + id + ", owner=" + owner + ", name=" + name + ", image=" + image + ", species="
-				+ species + ", maxPower=" + maxPower + ", avgPower=" + avgPower + ", date=" + date + ", time=" + time
-				+ ", timeing=" + timeing + ", GPSLat=" + GPSLat + ", GPSLot=" + GPSLot + "]";
+		return "Fish [id=" + id + ", owner=" + owner + ", name=" + name + ", species=" + species + ", maxPower="
+				+ maxPower + ", avgPower=" + avgPower + ", date=" + date + ", time=" + time + ", timeing=" + timeing
+				+ ", GPSLat=" + GPSLat + ", GPSLot=" + GPSLot + "]";
 	}
-	
+
 	public String toJSONStr() {
 		Gson gson = new Gson();
 		return gson.toJson(this);
 	}
-	
+
 	public String getId() {
 		return id;
 	}
@@ -50,14 +49,6 @@ public class FishVo {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getImage() {
-		return image;
-	}
-
-	public void setImage(String image) {
-		this.image = image;
 	}
 
 	public String getSpecies() {

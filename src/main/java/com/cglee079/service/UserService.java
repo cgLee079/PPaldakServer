@@ -50,14 +50,8 @@ public class UserService {
 			Log.i("#id : " + id + "		don't have id");
 			return false;
 		}
-		if(user.getPassword().equals(password)){
+		if(user.getPwd().equals(password)){
 			Log.i("## User Information ##");
-			Log.i("id			: " + user.getId());
-			Log.i("pwd 			: " + user.getPassword());
-			Log.i("gender 		: " + user.getGender());
-			Log.i("phoneNumber 	: " + user.getPhoneNumber());
-			Log.i("birth 		: " + user.getBirth());
-			Log.i("imgFile 		: " + user.getImageFile());
 			return true;
 		} else { 
 			Log.i("#id : " + id + "		password is wrong");
