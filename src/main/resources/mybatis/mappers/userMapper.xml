@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.changoo.mapper.UserMapper">
+	<insert id="insert">
+		INSERT	INTO TB_SMS_USERS
+		VALUES(#{user_seq_no}, #{user_id}, #{user_pwd}, #{user_nm}, #{user_birth}, #{user_ph}, #{user_email}, #{user_auth}, #{user_isdel})
+	</insert>
+	
+	<select id="list" resultType="kr.co.changoo.model.UserVo"
+		parameterType="map">
+		<![CDATA[
+		SELECT X.rnum, X.USER_SEQ_NO, X.USER_ID, X.USER_PWD, X.USER_NM, X.USER_BIRTH, X.USER_PH, X.USER_EMAIL,X.USER_AUTH,X.USER_ISDEL
+		FROM( SELECT rownum as rnum, A.USER_SEQ_NO, A.USER_ID, A.USER_PWD, A.USER_NM, A.USER_BIRTH, A.USER_PH, A.USER_EMAIL,A.USER_AUTH,A.USER_ISDEL
+			FROM (	SELECT USER_SEQ_NO,USER_ID,USER_PWD,USER_NM, TO_CHAR(USER_BIRTH,'yyyy-mm-dd')USER_BIRTH,USER_PH, USER_EMAIL,USER_AUTH,USER_ISDEL
+					FROM TB_SMS_USERS
+		 			WHERE 1 = 1
+        ]]>
+					<if test="search != null">
+						AND UPPER(USER_ID) LIKE '%'|| UPPER(#{search,jdbcType=VARCHAR}) ||'%'
+					</if>
+		<![CDATA[
+			        ORDER BY USER_SEQ_NO DESC) A
+		    	WHERE rownum <= #{endRow})X
+			WHERE X.rnum >= #{startRow}
+		]]>
+	</select>
+
+	<select id='cnt' resultType="INTEGER" parameterType="map">
+		SELECT	count(*)
+		FROM	TB_SMS_USERS
+		WHERE	1 = 1
+		<if test="search != null">
+		AND UPPER(USER_ID) LIKE '%'|| UPPER(#{search,jdbcType=VARCHAR}) ||'%'
+		</if>
+	</select>
+
+	<select id="getById" resultType="kr.co.changoo.model.UserVo">
+		SELECT	USER_SEQ_NO, USER_ID, USER_PWD, USER_NM, TO_CHAR(USER_BIRTH,'yyyy-mm-dd')USER_BIRTH,USER_PH, USER_EMAIL,USER_AUTH,USER_ISDEL
+		FROM	TB_SMS_USERS
+		WHERE	USER_ID = #{id, jdbcType=VARCHAR}
+	</select>
+	
+	<select id="getBySeq" parameterType="INTEGER" resultType="kr.co.changoo.model.UserVo">
+		SELECT 	USER_SEQ_NO, USER_ID, USER_PWD, USER_NM, TO_CHAR(USER_BIRTH,'yyyy-mm-dd')USER_BIRTH, USER_PH, USER_EMAIL,USER_AUTH,USER_ISDEL
+		FROM	TB_SMS_USERS
+		WHERE	USER_SEQ_NO = #{user_seq_no}
+	</select>
+
+	<select id='seq' resultType='INTEGER'>
+		SELECT SEQ_SMS_USERS.NEXTVAL FROM DUAL   
+	</select>
+	
+	<delete id="delete" parameterType="INTEGER">
+		DELETE FROM TB_SMS_USERS 
+		WHERE USER_SEQ_NO = #{user_seq_no}
+	</delete>
+	
+	<update id="update" >
+		UPDATE TB_SMS_USERS
+		SET USER_NM 	= #{user_nm}, 
+			USER_BIRTH	= #{user_birth},
+			USER_PH 	= #{user_ph},
+			USER_EMAIL	= #{user_email},
+			USER_AUTH 	= #{user_auth},
+			USER_ISDEL 	= #{user_isdel}
+		WHERE USER_SEQ_NO = #{user_seq_no}
+	</update>
+	
+</mapper>

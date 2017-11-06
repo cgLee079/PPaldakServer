@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.changoo.mapper.StatMapper">
+	<insert id='insert'>
+		INSERT INTO TB_SMS_STATS
+		VALUES(#{stat_seq_no}, #{tb_seq_no}, #{stat_nm}, #{stat_summ}, #{stat_filt}, #{stat_filt_val}, #{stat_x}, #{stat_y},
+			   #{stat_data}, #{stat_data_type}, #{stat_gra}, #{stat_cre_user}, SYSDATE, null, null)
+	</insert>
+	
+	<insert id='update'>
+		UPDATE TB_SMS_STATS
+		SET STAT_NM 		= #{stat_nm},
+			STAT_SUMM 		= #{stat_summ},
+			STAT_FILT		= #{stat_filt},
+			STAT_FILT_VAL	= #{stat_filt_val},
+			STAT_X			= #{stat_x},
+			STAT_Y			= #{stat_y},
+			STAT_DATA		= #{stat_data},
+			STAT_DATA_TYPE	= #{stat_data_type},
+			STAT_GRA		= #{stat_gra},
+			STAT_UPD_USER	= #{stat_upd_user},
+			STAT_UPD_DATE	= SYSDATE
+		WHERE STAT_SEQ_NO 	= #{stat_seq_no}
+	</insert>
+	
+	<insert id='delete' parameterType="map">
+		DELETE FROM TB_SMS_STATS
+		WHERE STAT_SEQ_NO = #{stat_seq_no}
+	</insert>
+	
+	<select id='get' resultType="kr.co.changoo.model.StatVo" parameterType="map">
+		SELECT STAT_SEQ_NO, STATS.TB_SEQ_NO, TB_NM , STAT_NM,STAT_SUMM, STAT_FILT, STAT_FILT_VAL, STAT_X, STAT_Y, STAT_DATA, STAT_DATA_TYPE, STAT_GRA, STAT_CRE_USER,TO_CHAR(STAT_CRE_DATE,'yyyy-mm-dd')STAT_CRE_DATE,STAT_UPD_USER,TO_CHAR(STAT_UPD_DATE,'yyyy-mm-dd')STAT_UPD_DATE
+        FROM TB_SMS_STATS STATS, TB_SMS_TABLES TABLES
+        WHERE STATS.TB_SEQ_NO=TABLES.TB_SEQ_NO
+        AND STAT_SEQ_NO = #{statSeq}
+        
+	</select>
+	
+	<select id="list" resultType="kr.co.changoo.model.StatVo"
+		parameterType="map">
+		<![CDATA[
+			SELECT X.rnum, X.STAT_SEQ_NO, X.TB_SEQ_NO, X.TB_NM, X.STAT_NM, X.STAT_SUMM, X.STAT_FILT, X.STAT_FILT_VAL, X.STAT_X, X.STAT_Y, X.STAT_DATA, X.STAT_DATA_TYPE, X.STAT_GRA, X.STAT_CRE_USER, X.STAT_CRE_DATE,X.STAT_UPD_USER,X.STAT_UPD_DATE
+			FROM( SELECT rownum as rnum, A.STAT_SEQ_NO, A.TB_SEQ_NO, A.TB_NM, A.STAT_NM, A.STAT_SUMM, A.STAT_FILT, A.STAT_FILT_VAL, A.STAT_X, A.STAT_Y, A.STAT_DATA, A.STAT_DATA_TYPE, A.STAT_GRA, A.STAT_CRE_USER, A.STAT_CRE_DATE,A.STAT_UPD_USER,A.STAT_UPD_DATE
+		    FROM( SELECT STAT_SEQ_NO, STATS.TB_SEQ_NO, TB_NM , STAT_NM,STAT_SUMM, STAT_FILT, STAT_FILT_VAL, STAT_X, STAT_Y, STAT_DATA, STAT_DATA_TYPE, STAT_GRA, STAT_CRE_USER,TO_CHAR(STAT_CRE_DATE,'yyyy-mm-dd')STAT_CRE_DATE,STAT_UPD_USER,TO_CHAR(STAT_UPD_DATE,'yyyy-mm-dd')STAT_UPD_DATE
+		        FROM TB_SMS_STATS STATS, TB_SMS_TABLES TABLES
+		        WHERE 1=1
+		        AND STATS.TB_SEQ_NO=TABLES.TB_SEQ_NO 
+        ]]>
+		<if test="search != null">
+			AND UPPER(STAT_NM) LIKE '%'|| UPPER(#{search,jdbcType=VARCHAR}) ||'%'
+		</if>
+		<![CDATA[
+	        ORDER BY STAT_SEQ_NO DESC) A
+	        WHERE 1=1
+		]]>   
+		<if test="endRow != null">
+	    	<![CDATA[
+	    	AND rownum <= #{endRow}
+	    	]]>   
+    	</if>
+   		<![CDATA[
+      		)X
+		]]>   
+    	<if test="startRow != null">
+    		<![CDATA[
+	  		WHERE X.rnum >= #{startRow}
+	  		]]>
+    	</if>
+	</select>
+
+	<select id='cnt' resultType="INTEGER" parameterType="map">
+		SELECT count(*)
+		FROM TB_SMS_STATS
+		WHERE 1=1
+		<if test="search != null">
+			AND UPPER(STAT_NM) LIKE '%'||
+			UPPER(#{search, jdbcType=VARCHAR}) ||'%'
+		</if>
+	</select>
+
+	<select id='max_cre_date' resultType="String">
+		SELECT TO_CHAR(MAX(STAT_CRE_DATE),'yyyy.mm.dd hh:mm:ss')
+		FROM TB_SMS_STATS
+	</select>
+
+	<select id='max_upd_date' resultType="String">
+		SELECT TO_CHAR(MAX(STAT_UPD_DATE),'yyyy.mm.dd hh:mm:ss')
+		FROM TB_SMS_STATS
+	</select>
+	
+	<select id='seq' resultType="INTEGER">
+		SELECT SEQ_SMS_STATS.NEXTVAL FROM DUAL
+	</select>
+</mapper>
