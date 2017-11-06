@@ -1,4 +1,4 @@
-package com.example.changoo.dao;
+package com.cglee079.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,7 +11,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import com.example.changoo.model.Fish;
+import com.cglee079.model.Fish;
 
 @Repository
 public class FishDAO {
@@ -22,12 +22,17 @@ public class FishDAO {
 		jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 
-	public List<Fish> getFishsByID(String user_id) {
+	public Fish getFish(String id) {
+		String str = "SELECT * FROM fishs WHERE id = ?";
+		return jdbcTemplate.queryForObject(str, new Object[] { id }, new FishMapper());
+	}
+	
+	public List<Fish> getFishsByOwner(String owner) {
 		String str = "SELECT * FROM fishs WHERE user_id = ? ORDER BY name ASC";
-		return jdbcTemplate.query(str, new Object[] { user_id }, new FishMapper());
+		return jdbcTemplate.query(str, new Object[] { owner }, new FishMapper());
 	}
 
-	public List<Fish> getFishsByIDAndFishName(String user_id, String fishname) {
+	public List<Fish> getFishsByOwnerAndFishname(String user_id, String fishname) {
 		String str = "SELECT * FROM fishs WHERE user_id = ? AND name like ? ORDER BY name ASC";
 		return jdbcTemplate.query(str, new Object[] { user_id, "%" + fishname + "%" }, new FishMapper());
 	}
@@ -47,19 +52,19 @@ public class FishDAO {
 				+ " VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 		
 		String id 		= fish.getId();
-		String user_id 	= fish.getUser_id();
+		String owner 	= fish.getOwner();
 		String name 	= fish.getName();
 		String species	= fish.getSpecies();
 		String imgFile 	= fish.getImageFile();
-		Double maxFower = fish.getMaxFower();
-		Double avgFower = fish.getAvgFower();
+		Double maxFower = fish.getMaxPower();
+		Double avgFower = fish.getAvgPower();
 		String date 	= fish.getDate();
 		String time 	= fish.getTime();
 		Integer timeing = fish.getTimeing();
-		Double GPS_lat 	= fish.getGPS_lat();
-		Double Gps_lot 	= fish.getGPS_lot();
+		Double GPSLat 	= fish.getGPSLat();
+		Double GPSLot 	= fish.getGPSLot();
 
-		return jdbcTemplate.update(sql, new Object[] { id, user_id, name, species, imgFile, maxFower, avgFower, date, time, timeing, GPS_lat, Gps_lot }) == 1;
+		return jdbcTemplate.update(sql, new Object[] { id, owner, name, species, imgFile, maxFower, avgFower, date, time, timeing, GPSLat, GPSLot }) == 1;
 	}
 	
 	public boolean delete(String id) {
@@ -72,19 +77,20 @@ public class FishDAO {
 		public Fish mapRow(ResultSet rs, int rowNum) throws SQLException {
 			Fish fish = new Fish();
 			fish.setId(rs.getString("id"));
-			fish.setUser_id(rs.getString("user_id"));
+			fish.setOwner(rs.getString("user_id"));
 			fish.setName(rs.getString("name"));
 			fish.setSpecies(rs.getString("species"));
 			fish.setImageFile(rs.getString("imgFile"));
-			fish.setMaxFower(rs.getDouble("maxFower"));
-			fish.setAvgFower(rs.getDouble("avgFower"));
+			fish.setMaxPower(rs.getDouble("maxFower"));
+			fish.setAvgPower(rs.getDouble("avgFower"));
 			fish.setDate(rs.getString("date"));
 			fish.setTime(rs.getString("time"));
 			fish.setTimeing(rs.getInt("timeing"));
-			fish.setGPS_lat(rs.getDouble("GPS_lat"));
-			fish.setGPS_lot(rs.getDouble("GPS_lot"));
+			fish.setGPSLat(rs.getDouble("GPS_lat"));
+			fish.setGPSLot(rs.getDouble("GPS_lot"));
 
 			return fish;
 		}
 	}
+
 }

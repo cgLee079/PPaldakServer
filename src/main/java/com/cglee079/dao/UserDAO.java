@@ -1,4 +1,4 @@
-package com.example.changoo.dao;
+package com.cglee079.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,8 +11,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import com.example.changoo.log.Log;
-import com.example.changoo.model.User;
+import com.cglee079.log.Log;
+import com.cglee079.model.User;
 
 @Repository
 public class UserDAO {
@@ -60,7 +60,7 @@ public class UserDAO {
 		}
 	}
 
-	public boolean setUser(User user) {
+	public boolean update(User user) {
 		
 		String id 			= user.getId();
 		String password 	= user.getPassword();

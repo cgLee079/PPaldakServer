@@ -1,12 +1,13 @@
-package com.example.changoo.service;
+package com.cglee079.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.changoo.dao.FishDAO;
-import com.example.changoo.model.Fish;
+import com.cglee079.dao.FishDAO;
+import com.cglee079.log.Log;
+import com.cglee079.model.Fish;
 
 @Service
 public class FishService {
@@ -17,12 +18,16 @@ public class FishService {
 		this.fishDAO = fishDAO;
 	}
 
-	public List<Fish> getFishsByID(String user_id) {
-		return fishDAO.getFishsByID(user_id);
+	public Fish getFish(String id){
+		return fishDAO.getFish(id);
+	}
+	
+	public List<Fish> getFishsByOwner(String owner) {
+		return fishDAO.getFishsByOwner(owner);
 	}
 
-	public List<Fish> getFishsByIDAndFishName(String user_id, String fishname) {
-		return fishDAO.getFishsByIDAndFishName(user_id, fishname);
+	public List<Fish> getFishsByOwnerAndFishname(String owner, String fishname) {
+		return fishDAO.getFishsByOwnerAndFishname(owner, fishname);
 	}
 
 	public List<Fish> getFishsInPeriod(String st_time, String end_time) {
@@ -34,7 +39,13 @@ public class FishService {
 	}
 
 	public boolean insert(Fish fish) {
-		return fishDAO.insert(fish);
+		boolean result = fishDAO.insert(fish);
+		if(result){
+			Log.i("# insert success");
+		} else {
+			Log.i("# insert fail");
+		}
+		return result;
 	}
 
 	public boolean delete(String id) {

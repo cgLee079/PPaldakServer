@@ -1,4 +1,4 @@
-package com.example.changoo.controller;
+package com.cglee079.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -1,4 +1,4 @@
-package com.example.changoo.log;
+package com.cglee079.log;
 
 public class Log {
 	public static void i(String s){

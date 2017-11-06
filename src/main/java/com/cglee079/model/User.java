@@ -1,4 +1,4 @@
-package com.example.changoo.model;
+package com.cglee079.model;
 
 import com.google.gson.Gson;
 
@@ -14,11 +14,18 @@ public class User {
 	public User() {
 		super();
 	}
-
+	
+	@Override
 	public String toString() {
+		return "User [id=" + id + ", password=" + password + ", name=" + name + ", gender=" + gender + ", birth="
+				+ birth + ", phoneNumber=" + phoneNumber + ", imageFile=" + imageFile + "]";
+	}
+
+	public String toJSONStr() {
 		Gson gson = new Gson();
 		return gson.toJson(this);
 	}
+	
 
 	public String getName() {
         return name;
