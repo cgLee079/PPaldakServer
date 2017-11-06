@@ -2,11 +2,11 @@ package com.cglee079.model;
 
 import com.google.gson.Gson;
 
-public class Fish {
+public class FishVo {
 	private String id;
 	private String owner;
 	private String name;
-	private String imageFile;
+	private String image;
 	private String species;
 	private Double maxPower;
 	private Double avgPower;
@@ -18,7 +18,7 @@ public class Fish {
 
 	@Override
 	public String toString() {
-		return "Fish [id=" + id + ", owner=" + owner + ", name=" + name + ", imageFile=" + imageFile + ", species="
+		return "Fish [id=" + id + ", owner=" + owner + ", name=" + name + ", image=" + image + ", species="
 				+ species + ", maxPower=" + maxPower + ", avgPower=" + avgPower + ", date=" + date + ", time=" + time
 				+ ", timeing=" + timeing + ", GPSLat=" + GPSLat + ", GPSLot=" + GPSLot + "]";
 	}
@@ -52,12 +52,12 @@ public class Fish {
 		this.name = name;
 	}
 
-	public String getImageFile() {
-		return imageFile;
+	public String getImage() {
+		return image;
 	}
 
-	public void setImageFile(String imageFile) {
-		this.imageFile = imageFile;
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 	public String getSpecies() {

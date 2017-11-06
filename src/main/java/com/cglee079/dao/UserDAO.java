@@ -12,7 +12,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.cglee079.log.Log;
-import com.cglee079.model.User;
+import com.cglee079.model.UserVo;
 
 @Repository
 public class UserDAO {
@@ -23,7 +23,7 @@ public class UserDAO {
 		jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 
-	public User getUser(String id) {
+	public UserVo getUser(String id) {
 		String str = "SELECT * FROM users WHERE id = ?";
 		try {
 			return jdbcTemplate.queryForObject(str, new Object[] { id }, new UserMapper());
@@ -32,7 +32,7 @@ public class UserDAO {
 		}
 	}
 
-	public boolean insert(User user) {
+	public boolean insert(UserVo user) {
 		String sql = "INSERT INTO users (id, password, name, gender, phonenumber, birth, imgFile) VALUES(?,?,?,?,?,?,?)";
 		String id 			= user.getId();
 		String password 	= user.getPassword();
@@ -44,10 +44,10 @@ public class UserDAO {
 		return jdbcTemplate.update(sql, new Object[] { id, password, name, gender, phoneNumber, birth, imgFile }) == 1;
 	}
 
-	class UserMapper implements RowMapper<User> {
+	class UserMapper implements RowMapper<UserVo> {
 		@Override
-		public User mapRow(ResultSet rs, int rowNum) throws SQLException {
-			User user = new User();
+		public UserVo mapRow(ResultSet rs, int rowNum) throws SQLException {
+			UserVo user = new UserVo();
 			user.setId(rs.getString("id"));
 			user.setPassword(rs.getString("password"));
 			user.setName(rs.getString("name"));
@@ -60,7 +60,7 @@ public class UserDAO {
 		}
 	}
 
-	public boolean update(User user) {
+	public boolean update(UserVo user) {
 		
 		String id 			= user.getId();
 		String password 	= user.getPassword();

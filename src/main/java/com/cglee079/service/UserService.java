@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.cglee079.dao.UserDAO;
 import com.cglee079.log.Log;
-import com.cglee079.model.User;
+import com.cglee079.model.UserVo;
 
 @Service
 public class UserService {
@@ -16,13 +16,13 @@ public class UserService {
 		this.userDAO = userDAO;
 	}
 
-	public User getUser(String id) {
+	public UserVo getUser(String id) {
 		return userDAO.getUser(id);
 	}
 
-	public boolean insert(User user) {
+	public boolean insert(UserVo user) {
 		String id = user.getId();
-		User userDB = userDAO.getUser(id);
+		UserVo userDB = userDAO.getUser(id);
 		if(userDB != null){
 			return false;
 		} else{
@@ -31,9 +31,9 @@ public class UserService {
 		
 	}
 
-	public boolean update(User user) {
+	public boolean update(UserVo user) {
 		String id 	= user.getId();
-		User userDB = userDAO.getUser(id);
+		UserVo userDB = userDAO.getUser(id);
 		if(userDB != null){
 			return userDAO.update(user);	
 		} else {
@@ -44,7 +44,7 @@ public class UserService {
 	}
 	
 	public boolean checkUser(String id, String password){
-		User user = userDAO.getUser(id);
+		UserVo user = userDAO.getUser(id);
 		
 		if(user == null){
 			Log.i("#id : " + id + "		don't have id");

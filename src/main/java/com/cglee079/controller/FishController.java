@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cglee079.log.Log;
-import com.cglee079.model.Fish;
-import com.cglee079.model.User;
+import com.cglee079.model.FishVo;
+import com.cglee079.model.UserVo;
 import com.cglee079.service.FishService;
 
 @Controller
@@ -34,7 +34,7 @@ public class FishController {
 	}
 
 	@RequestMapping(value = "/saveFish")
-	public void saveFish(Model model, Fish fish) {
+	public void saveFish(Model model, FishVo fish) {
 		Log.line();
 		Log.i("## save fish");
 		Log.i(fish.toString());
@@ -56,8 +56,8 @@ public class FishController {
 		Log.i("id: " + id);
 		Log.i("# delete start");
 		
-		Fish fish = fishService.getFish(id);
-		String filename	= fish.getImageFile();
+		FishVo fish = fishService.getFish(id);
+		String filename	= fish.getImage();
 		String path 	= session.getServletContext().getRealPath("/resources/images");
 		
 		File	fshImg 		= new File(path, filename);
@@ -94,17 +94,16 @@ public class FishController {
 		Log.i("# save end");
 	}
 
-	//mybatis
 	@ResponseBody
-	@RequestMapping(value = "/selectMyFish", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "/selectMyFish")
 	public HashMap<String, Object> selectMyFishs(HttpSession session, String fishname) {
 		Log.line();
 		Log.i("## select my fishs");
 
-		String id = (String) session.getAttribute("id");
+		String owner = (String) session.getAttribute("id");
 		
 		/* select my fish list */
-		List<Fish> fishs = fishService.getFishsByOwner(id);
+		List<FishVo> fishs = fishService.getMyFishs(owner, fishname);
 		Log.i("selected database");
 		
 		JSONArray fishArray	= new JSONArray();
@@ -120,7 +119,6 @@ public class FishController {
 		return response;
 	}
 
-	//mybatis
 	@ResponseBody
 	@RequestMapping(value = "/selectAllFish")
 	public HashMap<String, Object> selectAllFishs(String stDate, String endDate, String species) {
@@ -130,9 +128,8 @@ public class FishController {
 		Log.i("endDate	= " + endDate);
 		Log.i("Species	= " + species);
 
-		List<Fish> fishs = fishService.getFishsInPeriodBySpecies(species, stDate, endDate);
-
-		Log.i("get Species Fish From DataBase" + species);
+		List<FishVo> fishs = fishService.getAllFishs(stDate, endDate, species);
+		Log.i("selected database");
 
 		JSONArray 	fishArray 	= new JSONArray();
 		if (fishs != null) {

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.cglee079.dao.FishDAO;
 import com.cglee079.log.Log;
-import com.cglee079.model.Fish;
+import com.cglee079.model.FishVo;
 
 @Service
 public class FishService {
@@ -18,29 +18,21 @@ public class FishService {
 		this.fishDAO = fishDAO;
 	}
 
-	public Fish getFish(String id){
+	public FishVo getFish(String id){
 		return fishDAO.getFish(id);
 	}
 	
-	public List<Fish> getFishsByOwner(String owner) {
-		return fishDAO.getFishsByOwner(owner);
+	public List<FishVo> getMyFishs(String owner, String fishname) {
+		return fishDAO.getMyFishs(owner, fishname);
 	}
 
-	public List<Fish> getFishsByOwnerAndFishname(String owner, String fishname) {
-		return fishDAO.getFishsByOwnerAndFishname(owner, fishname);
+	public List<FishVo> getAllFishs(String stDate, String endDate, String species) {
+		return fishDAO.getAllFishs(stDate, endDate, species);
 	}
 
-	public List<Fish> getFishsInPeriod(String st_time, String end_time) {
-		return fishDAO.getFishsInPeriod(st_time, end_time);
-	}
-
-	public List<Fish> getFishsInPeriodBySpecies(String species, String st_time, String end_time) {
-		return fishDAO.getFishsInPeriodBySpecies(species, st_time, end_time);
-	}
-
-	public boolean insert(Fish fish) {
+	public boolean insert(FishVo fish) {
 		boolean result = fishDAO.insert(fish);
-		if(result){
+		if(result){ 
 			Log.i("# insert success");
 		} else {
 			Log.i("# insert fail");

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cglee079.log.Log;
-import com.cglee079.model.User;
+import com.cglee079.model.UserVo;
 import com.cglee079.service.UserService;
 
 @Controller
@@ -43,7 +43,7 @@ public class UserContoller {
 		/* check database */
 		boolean result = userService.checkUser(id, password);
 		if(result){
-			User user = userService.getUser(id);
+			UserVo user = userService.getUser(id);
 			session.setAttribute("id", id);
 			response.put("result", true);
 			response.put("user", user.toJSONStr());
@@ -56,7 +56,7 @@ public class UserContoller {
 
 	@ResponseBody
 	@RequestMapping(value = "/join", method = { RequestMethod.POST }, params = { "!modify" } )
-	public HashMap<String, Object> modify(User user) {
+	public HashMap<String, Object> modify(UserVo user) {
 		HashMap<String, Object> response = new HashMap<>();
 		
 		Log.line();
@@ -71,7 +71,7 @@ public class UserContoller {
 	
 	@ResponseBody
 	@RequestMapping(value = "/join", method = { RequestMethod.POST }, params = { "modify" })
-	public HashMap<String, Object> join(Model model, User user) {
+	public HashMap<String, Object> join(Model model, UserVo user) {
 		HashMap<String, Object> response = new HashMap<>();
 
 		Log.line();

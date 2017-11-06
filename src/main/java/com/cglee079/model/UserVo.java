@@ -2,7 +2,7 @@ package com.cglee079.model;
 
 import com.google.gson.Gson;
 
-public class User {
+public class UserVo {
 	private String id;
 	private String password;
 	private String name;
@@ -11,7 +11,7 @@ public class User {
 	private String phoneNumber;
 	private String imageFile;
 
-	public User() {
+	public UserVo() {
 		super();
 	}
 	
