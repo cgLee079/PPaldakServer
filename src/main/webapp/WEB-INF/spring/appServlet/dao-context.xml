@@ -31,7 +31,7 @@
 		<property name="password" value="s12345" />
 	</bean>
 	 -->
-	
+	 
 	<!-- Query Log -->
 	<bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
 		<constructor-arg ref="dataSourceSpied" />
