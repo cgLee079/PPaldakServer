@@ -97,7 +97,7 @@ public class FishController {
 	//mybatis
 	@ResponseBody
 	@RequestMapping(value = "/selectMyFish", method = { RequestMethod.GET, RequestMethod.POST })
-	public HashMap<String, Object> showFishsByID(HttpSession session, String fishname) {
+	public HashMap<String, Object> selectMyFishs(HttpSession session, String fishname) {
 		Log.line();
 		Log.i("## select my fishs");
 
@@ -123,7 +123,7 @@ public class FishController {
 	//mybatis
 	@ResponseBody
 	@RequestMapping(value = "/selectAllFish")
-	public HashMap<String, Object> showAllFish(String stDate, String endDate, String species) {
+	public HashMap<String, Object> selectAllFishs(String stDate, String endDate, String species) {
 		Log.line();
 		Log.i("## select all fishs");
 		Log.i("stDate	= " + stDate);
