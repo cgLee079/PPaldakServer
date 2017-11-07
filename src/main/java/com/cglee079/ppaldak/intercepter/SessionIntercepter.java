@@ -14,7 +14,9 @@ public class SessionIntercepter extends HandlerInterceptorAdapter {
 	/* Controller 호출 전 */
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-	
+		
+		Log.line();
+		Log.line();
 		Log.i("## Session check");
 		
 		/* Controller 호출 전 세션 체크, 세션이 없을 경우 로그인 페이지로 이동 */

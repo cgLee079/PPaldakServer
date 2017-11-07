@@ -39,6 +39,15 @@ table tr td{
 		form.appendTo($("body"));
 		form.submit();
 	}
+	 
+ 	function joinImg(){
+ 		var form = $("<form>", { enctype : "multipart/form-data" , action : "joinImg", method : "POST" }); 
+ 		var file = $("#file1");
+ 		file.appendTo(form);
+ 		$("<input>", { 	type : "hidden", name : "id", value: "jihe2" }).appendTo(form);
+		form.appendTo($("body"));
+		form.submit();
+ 	}
  
  
  	function modify(){
@@ -72,6 +81,16 @@ table tr td{
 		$("<input>", { 	type : "hidden", name : "GPSLat", value: "37.00"}).appendTo(form);
 		$("<input>", { 	type : "hidden", name : "GPSLot", value: "126.990"}).appendTo(form);
 		
+		form.appendTo($("body"));
+		form.submit();
+ 	}
+ 	
+ 	
+ 	function saveFishImg(){
+ 		var form = $("<form>", { enctype : "multipart/form-data", action : "saveFishImg", method : "POST" }); 
+ 		var file = $("#file2");
+ 		file.appendTo(form);
+		$("<input>", { 	type : "hidden", name : "id", value: "cksrn2979_20170520041123"}).appendTo(form);
 		form.appendTo($("body"));
 		form.submit();
  	}
@@ -135,6 +154,13 @@ table tr td{
 		
 		<tr>
 		<td>TEST3</td>
+		<td>/joinImg</td>
+		<td><a href="javascript:void(0)" onclick="joinImg()">TEST</a></td>
+		<td><input type="file" id="file1" name="file"></td>
+		</tr>
+		
+		<tr>
+		<td>TEST4</td>
 		<td>/join - modify</td>
 		<td><a href="javascript:void(0)" onclick="modify()">TEST</a></td>
 		</tr>
@@ -152,36 +178,43 @@ table tr td{
 		
 		<tr>
 		<td>TEST2</td>
+		<td>/saveFishImg</td>
+		<td><a href="javascript:void(0)" onclick="saveFishImg()">TEST</a></td>
+		<td><input type="file" id="file2" name="file"></td>
+		</tr>
+		
+		<tr>
+		<td>TEST3</td>
 		<td>/deleteFish</td>
 		<td><a href="javascript:void(0)" onclick="deleteFish()">TEST</a></td>
 		</tr>
 		
 		<tr>
-		<td>TEST3</td>
+		<td>TEST4</td>
 		<td>/selectMyFish</td>
 		<td><a href="javascript:void(0)" onclick="selectMyFish()">TEST</a></td>
 		</tr>
 		
 		<tr>
-		<td>TEST4</td>
+		<td>TEST5</td>
 		<td>/selectMyFish - search</td>
 		<td><a href="javascript:void(0)" onclick="selectMyFishSearch()">TEST</a></td>
 		</tr>
 		
 		<tr>
-		<td>TEST5</td>
+		<td>TEST6</td>
 		<td>/selectAllFish</td>
 		<td><a href="javascript:void(0)" onclick="selectAllFish()">TEST</a></td>
 		</tr>
 		
 		<tr>
-		<td>TEST5</td>
+		<td>TEST7</td>
 		<td>/selectAllFish - date</td>
 		<td><a href="javascript:void(0)" onclick="selectAllFishDate()">TEST</a></td>
 		</tr>
 		
 		<tr>
-		<td>TEST6</td>
+		<td>TEST8</td>
 		<td>/selectAllFish - species</td>
 		<td><a href="javascript:void(0)" onclick="selectAllFishSpecies()">TEST</a></td>
 		</tr>

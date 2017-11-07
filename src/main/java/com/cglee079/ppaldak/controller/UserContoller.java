@@ -31,7 +31,7 @@ public class UserContoller {
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "/login", produces="application/json;charset=UTF-8", method = { RequestMethod.POST })
+	@RequestMapping(value = "/login", method = { RequestMethod.POST })
 	public HashMap<String, Object> login(HttpSession session, String id, String pwd) {
 		HashMap<String, Object> response = new HashMap<>();
 		Log.line();
@@ -82,19 +82,19 @@ public class UserContoller {
 		return response;
 	}
 
-	@RequestMapping(value = "/saveUserImage")
-	public void saveFishImage(String id, String filename, @RequestParam("image") MultipartFile multipartFile, HttpServletRequest request) throws IllegalStateException, IOException {
+	@RequestMapping(value = "/joinImg")
+	public void saveFishImage(HttpSession session, String id, MultipartFile file) throws IllegalStateException, IOException {
 		Log.line();
 		Log.i("## save user image");
 		Log.i("id 		: " + id);
-		Log.i("filename : " + filename);
-		Log.i("filesize	: " + multipartFile.getSize());
+		Log.i("filesize	: " + file.getSize());
 		Log.i("# save start");
 
-		String path = request.getSession().getServletContext().getRealPath("/resources/images");
-		File file = new File(path, filename);
+		String filename = id + ".jpg";
+		String path 	= session.getServletContext().getRealPath("/resources/images");
+		File fshImg = new File(path, filename);
 
-		multipartFile.transferTo(file);
+		file.transferTo(fshImg);
 
 		Log.i("# save end");
 	}

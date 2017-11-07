@@ -85,19 +85,19 @@ public class FishController {
 		return response;
 	}
 
-	@RequestMapping(value = "/saveFishImage")
-	public void saveFishImage(HttpSession session, String id, @RequestParam("image") MultipartFile multipartFile) throws IllegalStateException, IOException {
+	@RequestMapping(value = "/saveFishImg")
+	public void saveFishImage(HttpSession session, String id, MultipartFile file) throws IllegalStateException, IOException {
 		Log.line();
 		Log.i("## save fish image");
 		Log.i("id : " + id);
-		Log.i("filesize  :" + multipartFile.getSize());
+		Log.i("filesize  :" + file.getSize());
 		Log.i("# save start");
 
 		String path		= session.getServletContext().getRealPath("/resources/images");
 		String filename = id + ".jpg";
 		File fshImg = new File(path, filename);
 
-		multipartFile.transferTo(fshImg);
+		file.transferTo(fshImg);
 
 		Log.i("# save end");
 	}
