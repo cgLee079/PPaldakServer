@@ -96,6 +96,12 @@ table tr td{
 		form.submit();
 	}
  	
+ 	function selectAllFish(){
+ 		var form = $("<form>", { action : "selectAllFish", method : "POST" }); 
+		form.appendTo($("body"));
+		form.submit();
+ 	}
+ 	
  	function selectAllFishDate(){
  		var form = $("<form>", { action : "selectAllFish", method : "POST" }); 
  		$("<input>", { 	type : "hidden", name : "stDate", value: "2017/01/01"}).appendTo(form);
