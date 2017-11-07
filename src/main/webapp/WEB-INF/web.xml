@@ -5,6 +5,7 @@
     <param-value>/WEB-INF/spring/root-context.xml
 		/WEB-INF/spring/appServlet/dao-context.xml
 		/WEB-INF/spring/appServlet/service-context.xml
+		/WEB-INF/spring/appServlet/interceptor-context.xml
 		</param-value>
   </context-param>
   <listener>
