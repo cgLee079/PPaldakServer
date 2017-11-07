@@ -10,9 +10,15 @@
 	
 
 	<select id="get" resultType="com.cglee079.model.UserVo" parameterType="map">
-		SELECT	*
+		SELECT	
+			USER_ID	as 	"id",
+			USER_PWD	as 	"pwd",
+			USER_NM	as	"name",
+			USER_GENDER	as	"gender",
+			USER_BIRTH	as	"birth",
+			USER_PH	as	"ph"
 		FROM	TB_PPALDAK_USERS
-		WHERE	USER_ID = #{id, jdbcType=VARCHAR}
+		WHERE	USER_ID = #{id}
 	</select>
 	
 	<update id="update">
@@ -22,7 +28,7 @@
 			USER_GENDER	= #{gender},
 			USER_PH 	= #{ph},
 			USER_BIRTH 	= #{birth},
-		WHERE USER_SEQ_NO = #{id}
+		WHERE USER_ID = #{id}
 	</update>
 	
 </mapper>

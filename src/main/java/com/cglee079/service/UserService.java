@@ -52,6 +52,7 @@ public class UserService {
 		}
 		if(user.getPwd().equals(password)){
 			Log.i("## User Information ##");
+			Log.i(user.toString());
 			return true;
 		} else { 
 			Log.i("#id : " + id + "		password is wrong");

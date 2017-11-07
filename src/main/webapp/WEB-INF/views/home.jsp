@@ -9,14 +9,14 @@
 <script type="text/javascript">
  function login(){
 	var form = $("<form>", {
-		action : "/login",
+		action : "login",
 		method : "POST"
 	});
 	
 	$("<input>", {
 		type : "hidden",
 		name : "id",
-		value: "cksrn2979"
+		value: "jihe"
 	}).appendTo(form);
 	
 	$("<input>", {
@@ -25,7 +25,7 @@
 		value: "1"
 	}).appendTo(form);
 	
-	form.append($("body"));
+	form.appendTo($("body"));
 	form.submit();
  }
 

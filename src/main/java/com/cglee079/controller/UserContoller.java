@@ -31,17 +31,17 @@ public class UserContoller {
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "/login", method = { RequestMethod.POST })
-	public HashMap<String, Object> login(HttpSession session, String id, String password) {
+	@RequestMapping(value = "/login", produces="application/json;charset=UTF-8", method = { RequestMethod.POST })
+	public HashMap<String, Object> login(HttpSession session, String id, String pwd) {
 		HashMap<String, Object> response = new HashMap<>();
 		Log.line();
 		Log.i("## login");
 		Log.i("id 	: " + id);
-		Log.i("pwd 	: " + password);
+		Log.i("pwd 	: " + pwd);
 		Log.line();
 
 		/* check database */
-		boolean result = userService.checkUser(id, password);
+		boolean result = userService.checkUser(id, pwd);
 		if(result){
 			UserVo user = userService.getUser(id);
 			session.setAttribute("id", id);
