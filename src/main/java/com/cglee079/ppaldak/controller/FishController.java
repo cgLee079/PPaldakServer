@@ -51,6 +51,27 @@ public class FishController {
 		
 		return response;
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/saveFishImg")
+	public HashMap<String, Object> saveFishImg(HttpSession session, String id, MultipartFile file) throws IllegalStateException, IOException {
+		Log.line();
+		Log.i("## save fish image");
+		Log.i("id : " + id);
+		Log.i("filesize  :" + file.getSize());
+		Log.i("# save start");
+
+		String path		= session.getServletContext().getRealPath("/resources/images");
+		String filename = id + ".jpg";
+		File fshImg = new File(path, filename);
+
+		file.transferTo(fshImg);
+		Log.i("# save end");
+		
+		HashMap<String, Object> response = new HashMap<>();
+		response.put("result", true);
+		return response;
+	}
 
 	@ResponseBody
 	@RequestMapping(value = "/deleteFish")
@@ -83,23 +104,6 @@ public class FishController {
 		response.put("result_db", fshdel);
 		response.put("result_img", fshImgdel);
 		return response;
-	}
-
-	@RequestMapping(value = "/saveFishImg")
-	public void saveFishImage(HttpSession session, String id, MultipartFile file) throws IllegalStateException, IOException {
-		Log.line();
-		Log.i("## save fish image");
-		Log.i("id : " + id);
-		Log.i("filesize  :" + file.getSize());
-		Log.i("# save start");
-
-		String path		= session.getServletContext().getRealPath("/resources/images");
-		String filename = id + ".jpg";
-		File fshImg = new File(path, filename);
-
-		file.transferTo(fshImg);
-
-		Log.i("# save end");
 	}
 
 	@ResponseBody

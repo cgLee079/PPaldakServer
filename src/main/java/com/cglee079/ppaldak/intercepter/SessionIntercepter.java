@@ -26,7 +26,7 @@ public class SessionIntercepter extends HandlerInterceptorAdapter {
 
 		if (id == null) {
 			Log.i("# session  : false, redirect");
-			response.sendRedirect(request.getContextPath() + "/"); // 이동
+			response.sendRedirect(request.getContextPath() + "/error"); // 이동
 			result = false; // return false; 컨트롤러 호출을 더이상 진행 하지 않음;
 		} else {
 			Log.i("# session  : true");

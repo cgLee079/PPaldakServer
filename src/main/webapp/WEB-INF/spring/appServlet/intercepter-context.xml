@@ -14,6 +14,7 @@
 			<mvc:exclude-mapping path="/" />
 			<mvc:exclude-mapping path="/login" /> 
 			<mvc:exclude-mapping path="/join" />
+			<mvc:exclude-mapping path="/error" />
 			<bean class="com.cglee079.ppaldak.intercepter.SessionIntercepter"></bean> <!-- Interceptor 클래스 (Custom) -->
 		</mvc:interceptor>
 	</mvc:interceptors>

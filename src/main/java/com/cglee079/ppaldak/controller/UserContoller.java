@@ -55,6 +55,41 @@ public class UserContoller {
 	}
 
 	@ResponseBody
+	@RequestMapping(value = "/join", method = { RequestMethod.POST }, params = { "!modify" })
+	public HashMap<String, Object> join(Model model, UserVo user) {
+		HashMap<String, Object> response = new HashMap<>();
+
+		Log.line();
+		Log.i("## join");
+		Log.i(user.toString());
+
+		response.put("result", userService.insert(user));
+		return response;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/joinImg")
+	public HashMap<String, Object> saveFishImage(HttpSession session, String id, MultipartFile file) throws IllegalStateException, IOException {
+		Log.line();
+		Log.i("## save user image");
+		Log.i("id 		: " + id);
+		Log.i("filesize	: " + file.getSize());
+		Log.i("# save start");
+
+		String filename = id + ".jpg";
+		String path 	= session.getServletContext().getRealPath("/resources/images");
+		File fshImg = new File(path, filename);
+
+		file.transferTo(fshImg);
+
+		Log.i("# save end");
+		
+		HashMap<String, Object> response = new HashMap<>();
+		response.put("result", true);
+		return response;
+	}
+	
+	@ResponseBody
 	@RequestMapping(value = "/join", method = { RequestMethod.POST }, params = { "modify" } )
 	public HashMap<String, Object> modify(UserVo user) {
 		HashMap<String, Object> response = new HashMap<>();
@@ -69,33 +104,4 @@ public class UserContoller {
 
 	}
 	
-	@ResponseBody
-	@RequestMapping(value = "/join", method = { RequestMethod.POST }, params = { "!modify" })
-	public HashMap<String, Object> join(Model model, UserVo user) {
-		HashMap<String, Object> response = new HashMap<>();
-
-		Log.line();
-		Log.i("## join");
-		Log.i(user.toString());
-
-		response.put("result", userService.insert(user));
-		return response;
-	}
-
-	@RequestMapping(value = "/joinImg")
-	public void saveFishImage(HttpSession session, String id, MultipartFile file) throws IllegalStateException, IOException {
-		Log.line();
-		Log.i("## save user image");
-		Log.i("id 		: " + id);
-		Log.i("filesize	: " + file.getSize());
-		Log.i("# save start");
-
-		String filename = id + ".jpg";
-		String path 	= session.getServletContext().getRealPath("/resources/images");
-		File fshImg = new File(path, filename);
-
-		file.transferTo(fshImg);
-
-		Log.i("# save end");
-	}
 }
