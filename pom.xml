@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.cglee079.ppaldak</groupId>
-	<name>ServerFishing</name>
+	<name>PPaldakServer</name>
 	<packaging>war</packaging>
 	<version>1.0.0</version>
 	<properties>
@@ -119,7 +119,7 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
-
+		
 		<!-- Test -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -135,6 +135,7 @@
 			<version>5.1.38</version>
 			<scope>compile</scope>
 		</dependency>
+		
 		<dependency>
 			<groupId>commons-dbcp</groupId>
 			<artifactId>commons-dbcp</artifactId>

@@ -1,4 +1,4 @@
-package com.cglee079.ppaldak.interceptor;
+package com.cglee079.ppaldak.intercepter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 /*Interceptor Class*/
-public class SessionInterceptor extends HandlerInterceptorAdapter {
+public class SessionIntercepter extends HandlerInterceptorAdapter {
 	Log logger = LogFactory.getLog("SESSION CHECK");
 
 	/* Controller 호출 전 */
