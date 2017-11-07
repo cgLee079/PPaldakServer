@@ -1,4 +1,4 @@
-package com.cglee079.controller;
+package com.cglee079.ppaldak.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

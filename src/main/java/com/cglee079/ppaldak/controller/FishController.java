@@ -1,4 +1,4 @@
-package com.cglee079.controller;
+package com.cglee079.ppaldak.controller;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.cglee079.log.Log;
-import com.cglee079.model.FishVo;
-import com.cglee079.service.FishService;
+import com.cglee079.ppaldak.log.Log;
+import com.cglee079.ppaldak.model.FishVo;
+import com.cglee079.ppaldak.service.FishService;
 
 @Controller
 public class FishController {

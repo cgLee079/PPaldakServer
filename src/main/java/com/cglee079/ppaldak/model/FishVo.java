@@ -1,4 +1,4 @@
-package com.cglee079.model;
+package com.cglee079.ppaldak.model;
 
 import com.google.gson.Gson;
 

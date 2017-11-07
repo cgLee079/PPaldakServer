@@ -1,4 +1,4 @@
-package com.cglee079.dao;
+package com.cglee079.ppaldak.dao;
 
 import java.util.HashMap;
 
@@ -6,11 +6,11 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.cglee079.model.UserVo;
+import com.cglee079.ppaldak.model.UserVo;
 
 @Repository
 public class UserDAO {
-	private static final String namespace = "com.cglee079.mapper.UserMapper";
+	private static final String namespace = "com.cglee079.ppaldak.mapper.UserMapper";
 
 	@Autowired
 	private SqlSessionTemplate sqlSession;	

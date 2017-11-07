@@ -1,3 +1,4 @@
+package com.cglee079.ppaldak.controller;
 /* UserController
  * 
  * saveUser  - > join*/

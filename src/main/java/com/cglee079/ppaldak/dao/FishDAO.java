@@ -1,4 +1,4 @@
-package com.cglee079.dao;
+package com.cglee079.ppaldak.dao;
 
 import java.util.HashMap;
 import java.util.List;
@@ -7,11 +7,11 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.cglee079.model.FishVo;
+import com.cglee079.ppaldak.model.FishVo;
 
 @Repository
 public class FishDAO {
-	private static final String namespace="com.cglee079.mapper.FishMapper";
+	private static final String namespace="com.cglee079.ppaldak.mapper.FishMapper";
 
 	@Autowired
 	private SqlSessionTemplate sqlSession;	

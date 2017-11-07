@@ -1,13 +1,13 @@
-package com.cglee079.service;
+package com.cglee079.ppaldak.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cglee079.dao.FishDAO;
-import com.cglee079.log.Log;
-import com.cglee079.model.FishVo;
+import com.cglee079.ppaldak.dao.FishDAO;
+import com.cglee079.ppaldak.log.Log;
+import com.cglee079.ppaldak.model.FishVo;
 
 @Service
 public class FishService {

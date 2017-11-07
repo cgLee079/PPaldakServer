@@ -2,14 +2,14 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cglee079.mapper.UserMapper">
+<mapper namespace="com.cglee079.ppaldak.mapper.UserMapper">
 	<insert id="insert">
 		INSERT INTO TB_PPALDAK_USERS (USER_ID, USER_PWD, USER_NM, USER_GENDER, USER_PH, USER_BIRTH)
 		VALUES (#{id}, #{pwd}, #{name}, #{gender}, #{birth}, #{ph})
 	</insert>
 	
 
-	<select id="get" resultType="com.cglee079.model.UserVo" parameterType="map">
+	<select id="get" resultType="com.cglee079.ppaldak.model.UserVo" parameterType="map">
 		SELECT	
 			USER_ID	as 	"id",
 			USER_PWD	as 	"pwd",

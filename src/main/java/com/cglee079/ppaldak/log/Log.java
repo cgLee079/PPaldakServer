@@ -1,4 +1,4 @@
-package com.cglee079.log;
+package com.cglee079.ppaldak.log;
 
 public class Log {
 	public static void i(String s){

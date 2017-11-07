@@ -1,11 +1,11 @@
-package com.cglee079.service;
+package com.cglee079.ppaldak.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cglee079.dao.UserDAO;
-import com.cglee079.log.Log;
-import com.cglee079.model.UserVo;
+import com.cglee079.ppaldak.dao.UserDAO;
+import com.cglee079.ppaldak.log.Log;
+import com.cglee079.ppaldak.model.UserVo;
 
 @Service
 public class UserService {
