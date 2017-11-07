@@ -4,30 +4,30 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.cglee079.ppaldak.log.Log;
+
 /*Interceptor Class*/
 public class SessionIntercepter extends HandlerInterceptorAdapter {
-	Log logger = LogFactory.getLog("SESSION CHECK");
-
 	/* Controller 호출 전 */
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-		System.out.println("ddd");
+	
+		Log.i("## Session check");
+		
 		/* Controller 호출 전 세션 체크, 세션이 없을 경우 로그인 페이지로 이동 */
 		boolean result = true;
 		HttpSession session = request.getSession();
 		String id = (String) session.getAttribute("id");
 
 		if (id == null) {
-			logger.info("RESULT  : FALSE -----> REDIRECT LOGIN PAGE");
+			Log.i("# session  : false, redirect");
 			response.sendRedirect(request.getContextPath() + "/"); // 이동
 			result = false; // return false; 컨트롤러 호출을 더이상 진행 하지 않음;
 		} else {
-			logger.info("RESULT  : TRUE");
+			Log.i("# session  : true");
 		}
 
 		return result;
