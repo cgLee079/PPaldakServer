@@ -14,8 +14,8 @@
 			USER_PWD	varchar(300)	NOT NULL,
 			USER_NM		varchar(200)	NOT NULL,
 			USER_GENDER	char(1)			NOT NULL,
-			USER_BIRTH	varchar(11)		NOT NULL,
-			USER_PH		varchar(13),
+			USER_BIRTH	varchar(15)		NOT NULL,
+			USER_PH		varchar(15),
 			CONSTRAINT PK_PPALDAK_USERS PRIMARY KEY (USER_ID)
 			)
 			
@@ -36,7 +36,7 @@
 			FSH_SPECIES	varchar(200),
 			FSH_MAXPWR	double(6,2) 	NOT NULL,
 			FSH_AVGPWR	double(6,2) 	NOT NULL,
-			FSH_DATE	varchar(11) 	NOT NULL,
+			FSH_DATE	varchar(15) 	NOT NULL,
 			FSH_TIME	varchar(9) 		NOT NULL,
 			FSH_TIMEING	int 			NOT NULL,
 			FSH_GPSLAT	double(10,4),

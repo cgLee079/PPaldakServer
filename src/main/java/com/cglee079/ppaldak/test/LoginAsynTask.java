@@ -10,7 +10,7 @@ import java.net.URL;
 
 import com.cglee079.ppaldak.log.Log;
 
-public class Test {
+public class LoginAsynTask {
 
 	public static void main(String[] args) throws IOException {
 		// serverURL 가져옴

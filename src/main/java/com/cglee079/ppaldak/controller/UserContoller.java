@@ -55,7 +55,7 @@ public class UserContoller {
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "/join", method = { RequestMethod.POST }, params = { "!modify" } )
+	@RequestMapping(value = "/join", method = { RequestMethod.POST }, params = { "modify" } )
 	public HashMap<String, Object> modify(UserVo user) {
 		HashMap<String, Object> response = new HashMap<>();
 		
@@ -70,7 +70,7 @@ public class UserContoller {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/join", method = { RequestMethod.POST }, params = { "modify" })
+	@RequestMapping(value = "/join", method = { RequestMethod.POST }, params = { "!modify" })
 	public HashMap<String, Object> join(Model model, UserVo user) {
 		HashMap<String, Object> response = new HashMap<>();
 

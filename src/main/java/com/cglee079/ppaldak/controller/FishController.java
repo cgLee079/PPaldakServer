@@ -29,11 +29,15 @@ public class FishController {
 		this.fishService = fishService;
 	}
 
+	@ResponseBody
 	@RequestMapping(value = "/saveFish")
-	public void saveFish(Model model, FishVo fish) {
+	public HashMap<String, Object> saveFish(HttpSession session, FishVo fish) {
 		Log.line();
 		Log.i("## save fish");
 		Log.i(fish.toString());
+		
+		String id = (String) session.getAttribute("id");
+		fish.setOwner(id);
 		
 		/* 시연 미스 */
 //		String date	 		= fish.getDate();
@@ -42,11 +46,15 @@ public class FishController {
 //		Log.i(newDate);
 //		fish.setDate(newDate);
 		
-		fishService.insert(fish);
+		HashMap<String, Object> response = new HashMap<>();
+		response.put("result", fishService.insert(fish));
+		
+		return response;
 	}
 
+	@ResponseBody
 	@RequestMapping(value = "/deleteFish")
-	public void deleteFish(HttpSession session, String id) {
+	public HashMap<String, Object> deleteFish(HttpSession session, String id) {
 		Log.line();
 		Log.i("## delete fish");
 		Log.i("id: " + id);
@@ -70,6 +78,11 @@ public class FishController {
 		else { Log.i("image deleted fail"); }
 		
 		Log.i("# delete end");
+		
+		HashMap<String, Object> response = new HashMap<>();
+		response.put("result_db", fshdel);
+		response.put("result_img", fshImgdel);
+		return response;
 	}
 
 	@RequestMapping(value = "/saveFishImage")
@@ -91,14 +104,15 @@ public class FishController {
 
 	@ResponseBody
 	@RequestMapping(value = "/selectMyFish")
-	public HashMap<String, Object> selectMyFishs(HttpSession session, String fishname) {
+	public HashMap<String, Object> selectMyFishs(HttpSession session, String search) {
 		Log.line();
 		Log.i("## select my fishs");
+		Log.i("search  :" + search);
 
 		String owner = (String) session.getAttribute("id");
 		
 		/* select my fish list */
-		List<FishVo> fishs = fishService.getMyFishs(owner, fishname);
+		List<FishVo> fishs = fishService.getMyFishs(owner, search);
 		Log.i("selected database");
 		
 		JSONArray fishArray	= new JSONArray();

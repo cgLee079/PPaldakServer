@@ -27,7 +27,7 @@
 			USER_NM 	= #{name},
 			USER_GENDER	= #{gender},
 			USER_PH 	= #{ph},
-			USER_BIRTH 	= #{birth},
+			USER_BIRTH 	= #{birth}
 		WHERE USER_ID = #{id}
 	</update>
 	

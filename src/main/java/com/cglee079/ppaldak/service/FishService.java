@@ -22,8 +22,8 @@ public class FishService {
 		return fishDAO.getFish(id);
 	}
 	
-	public List<FishVo> getMyFishs(String owner, String fishname) {
-		return fishDAO.getMyFishs(owner, fishname);
+	public List<FishVo> getMyFishs(String owner, String search) {
+		return fishDAO.getMyFishs(owner, search);
 	}
 
 	public List<FishVo> getAllFishs(String stDate, String endDate, String species) {
